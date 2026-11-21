@@ -1,653 +1,1415 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#4b246f">
-  <meta name="description" content="ORO &amp; MIEL — roles, tamales y champurrado artesanales.">
-  <title>ORO &amp; MIEL | Menú artesanal</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>ORO &amp; MIEL | Repostería Artesanal, Tamales y Champurrado en Tijuana</title>
+  <meta name="description" content="ORO &amp; MIEL en Tijuana: Roles artesanales gourmet, tamales tradicionales y champurrado caliente. Pedidos y cotizaciones para eventos por WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --purple: #642b91;
-      --royal: #4b246f;
-      --plum: #32164b;
-      --pink: #ed9fc1;
-      --blush: #fbe7f0;
-      --lilac: #dac9e8;
-      --honey: #c69443;
-      --gold: #daa85c;
-      --brown: #76513a;
-      --cream: #fffaf5;
-      --ink: #33213d;
-      --white: #fff;
-      --shadow: 0 18px 44px rgba(75,36,111,.13);
-      --radius: 22px;
+      --morado-real: #2b124c;
+      --morado-medio: #471f78;
+      --rosa-pastel: #f7dce6;
+      --lila-suave: #ede4f7;
+      --cafe-calido: #4a2c20;
+      --dorado-miel: #d49b35;
+      --dorado-claro: #f2cf84;
+      --crema-fondo: #fdf9f6;
+      --blanco: #ffffff;
+      --texto-oscuro: #24172b;
+      --texto-suave: #65556e;
+      --borde-suave: rgba(43, 18, 76, 0.12);
+      --sombra-card: 0 14px 34px rgba(43, 18, 76, 0.08);
+      --radio-lg: 22px;
+      --radio-md: 14px;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; color: var(--ink); background: var(--cream); font-family: Arial, Helvetica, sans-serif; line-height: 1.55; }
-    body.drawer-open { overflow: hidden; }
-    img, video { max-width: 100%; }
-    img { display: block; }
-    button, select, input { font: inherit; }
-    button, select { cursor: pointer; }
-    a { color: inherit; text-decoration: none; }
-    h1, h2, h3, p { margin-top: 0; }
-    h1, h2, h3 { color: var(--royal); font-family: Georgia, "Times New Roman", serif; line-height: 1.08; }
-    h1 { margin-bottom: 20px; font-size: clamp(3.1rem, 9vw, 6.7rem); letter-spacing: -.06em; }
-    h2 { margin-bottom: 12px; font-size: clamp(2.2rem, 5vw, 3.7rem); letter-spacing: -.04em; }
-    h3 { margin-bottom: 8px; font-size: 1.35rem; }
-    .container { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
-    .eyebrow { color: var(--brown); font-size: .76rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
-    .section { padding: 88px 0; }
-    .section-heading { max-width: 680px; margin-bottom: 36px; }
-    .button {
-      display: inline-flex; min-height: 48px; align-items: center; justify-content: center;
-      gap: 8px; border: 0; border-radius: 999px; padding: 12px 18px;
-      font-weight: 800; transition: transform .2s, box-shadow .2s, background .2s;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    .button:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(75,36,111,.16); }
-    .button-primary { background: var(--purple); color: var(--white); }
-    .button-gold { background: var(--gold); color: var(--plum); }
-    .button-outline { border: 1px solid rgba(75,36,111,.28); background: var(--white); color: var(--purple); }
-    .button-small { min-height: 42px; padding: 9px 14px; font-size: .86rem; }
-    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-    :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
-    .site-header { position: fixed; z-index: 20; top: 10px; left: 0; width: 100%; }
-    .nav { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid rgba(218,168,92,.48); border-radius: 18px; padding: 7px 10px; background: rgba(75,36,111,.96); color: var(--white); box-shadow: 0 10px 28px rgba(75,36,111,.18); backdrop-filter: blur(14px); }
-    .brand { display: flex; align-items: center; gap: 9px; font-weight: 800; }
-    .seal { position: relative; display: grid; width: 50px; height: 50px; flex: 0 0 50px; place-items: center; border: 2px solid var(--gold); border-radius: 50%; color: var(--white); font-family: Georgia, serif; font-size: .48rem; line-height: 1.08; text-align: center; letter-spacing: .06em; }
-    .seal::before { content: "✦"; position: absolute; top: -12px; color: var(--pink); font-size: 1.15rem; }
-    .brand-name { font-family: Georgia, serif; font-size: 1.05rem; }
-    .nav-links { display: flex; align-items: center; gap: 18px; font-size: .88rem; }
-    .nav-actions { display: flex; align-items: center; gap: 8px; }
-    .nav-menu { display: none; border: 1px solid rgba(255,255,255,.35); border-radius: 10px; background: transparent; color: var(--white); padding: 7px 10px; }
-    .cart-header-button { min-height: 38px; border: 1px solid rgba(218,168,92,.5); border-radius: 999px; padding: 7px 11px; background: var(--blush); color: var(--royal); font-size: .78rem; font-weight: 800; }
-    [data-cart-count] { display: inline-grid; min-width: 20px; height: 20px; margin-left: 4px; place-items: center; border-radius: 50%; background: var(--purple); color: var(--white); }
-    [data-cart-count].bump { animation: bump .35s ease; }
-    @keyframes bump { 50% { transform: scale(1.35); } }
+    html {
+      scroll-behavior: smooth;
+    }
 
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--crema-fondo);
+      color: var(--texto-oscuro);
+      line-height: 1.55;
+      padding-bottom: 88px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      letter-spacing: -0.01em;
+    }
+
+    /* Header sticky */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(43, 18, 76, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212, 155, 53, 0.28);
+      padding: 12px 18px;
+    }
+
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--blanco);
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--dorado-miel), var(--dorado-claro));
+      color: var(--morado-real);
+      display: grid;
+      place-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      box-shadow: 0 4px 12px rgba(212, 155, 53, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--dorado-claro);
+    }
+
+    .nav-links {
+      display: none;
+      gap: 22px;
+    }
+
+    .nav-links a {
+      color: var(--lila-suave);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--dorado-claro);
+    }
+
+    .cart-pill {
+      background: linear-gradient(135deg, var(--dorado-miel), #e2ad47);
+      color: var(--morado-real);
+      border: none;
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(212, 155, 53, 0.3);
+      transition: transform 0.15s ease;
+    }
+
+    .cart-pill:active {
+      transform: scale(0.97);
+    }
+
+    /* Hero */
     .hero {
-      position: relative; min-height: 720px; display: grid; align-items: center;
-      overflow: hidden; padding: 138px 0 70px; color: var(--white);
-      background: linear-gradient(135deg, rgba(50,22,75,.78), rgba(75,36,111,.88));
+      background:
+        radial-gradient(circle at 85% 15%, rgba(212, 155, 53, 0.22), transparent 45%),
+        radial-gradient(circle at 15% 85%, rgba(247, 220, 230, 0.16), transparent 45%),
+        linear-gradient(160deg, var(--morado-real) 0%, #3a1866 55%, var(--cafe-calido) 100%);
+      color: var(--blanco);
+      padding: 44px 18px 52px;
     }
-    .hero-media { position: absolute; inset: 0; z-index: 0; background: radial-gradient(circle at 72% 30%, var(--pink), transparent 24%), linear-gradient(145deg, var(--royal), var(--plum)); }
-    .hero-media img { width: 100%; height: 100%; object-fit: cover; opacity: .52; }
-    .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(50,22,75,.88), rgba(50,22,75,.3) 75%); }
-    .hero-content { position: relative; z-index: 1; max-width: 760px; }
-    .hero h1 { color: var(--white); }
-    .hero p { max-width: 620px; color: rgba(255,255,255,.92); font-size: 1.12rem; }
-    .hero .eyebrow { color: var(--pink); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .hero .button-outline { border-color: rgba(255,255,255,.55); background: rgba(255,255,255,.1); color: var(--white); backdrop-filter: blur(8px); }
-    .trust-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 34px; }
-    .trust-pills span { border: 1px solid rgba(218,168,92,.45); border-radius: 999px; padding: 8px 12px; background: rgba(75,36,111,.38); font-size: .78rem; }
 
-    .menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
-    .menu-card { overflow: hidden; border: 1px solid rgba(100,43,145,.08); border-radius: var(--radius); background: var(--white); box-shadow: var(--shadow); }
-    .menu-media { position: relative; min-height: 130px; display: grid; place-items: center; overflow: hidden; background: linear-gradient(135deg, var(--lilac), var(--blush), var(--gold)); color: var(--royal); text-align: center; }
-    .menu-media.video { background: linear-gradient(135deg, var(--plum), var(--purple)); }
-    .media-fallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; background: linear-gradient(135deg, var(--lilac), var(--blush) 55%, var(--gold)); color: var(--royal); font-family: Georgia, serif; font-weight: 800; }
-    .menu-media video { position: relative; z-index: 1; width: 100%; height: 280px; object-fit: cover; background: transparent; }
-    .menu-card-body { padding: 22px; }
-    .card-title { display: flex; justify-content: space-between; gap: 12px; }
-    .price { color: var(--purple); font-family: Georgia, serif; font-size: 1.15rem; white-space: nowrap; }
-    .option-list { display: grid; gap: 8px; margin: 12px 0 16px; }
-    .option { display: flex; min-height: 50px; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid #eadfeb; border-radius: 12px; padding: 9px 11px; background: var(--cream); }
-    .option input { width: 18px; height: 18px; accent-color: var(--purple); }
-    .option-name { min-width: 0; font-size: .86rem; }
-    .option-price { color: var(--purple); font-weight: 800; white-space: nowrap; }
-    .quantity-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 12px 0 14px; }
-    .quantity-control { display: inline-grid; grid-template-columns: 38px 42px 38px; overflow: hidden; border: 1px solid #eadfeb; border-radius: 999px; }
-    .quantity-control button { height: 38px; border: 0; background: var(--blush); color: var(--purple); }
-    .quantity-control output { display: grid; place-items: center; font-weight: 800; }
-    .menu-card .add-button { width: 100%; }
-
-    .champurrado { background: var(--blush); }
-    .champ-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 36px; align-items: center; }
-    .champ-image { position: relative; min-height: 440px; overflow: hidden; border-radius: var(--radius); background: linear-gradient(145deg, var(--lilac), var(--pink), var(--gold)); }
-    .champ-image img { width: 100%; height: 440px; object-fit: cover; }
-    .champ-fallback { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 30px; color: var(--royal); font-family: Georgia, serif; font-size: 2rem; }
-    .champ-card { border-radius: var(--radius); padding: 28px; background: var(--white); box-shadow: var(--shadow); }
-    .champ-card .option-list { grid-template-columns: repeat(3, minmax(0,1fr)); }
-    .champ-card .option { align-items: center; flex-direction: column; text-align: center; }
-
-    .quote-section { background: var(--royal); color: rgba(255,255,255,.82); }
-    .quote-section h2 { color: var(--white); }
-    .quote-section .eyebrow { color: var(--pink); }
-    .quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; align-items: start; }
-    .quote-box { border: 1px solid rgba(218,168,92,.35); border-radius: var(--radius); padding: 26px; background: var(--white); color: var(--ink); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    label { display: block; margin-bottom: 6px; color: var(--royal); font-size: .78rem; font-weight: 800; }
-    select, input[type="number"], input[type="text"], textarea { width: 100%; border: 1px solid #eadfeb; border-radius: 11px; padding: 11px 12px; background: var(--cream); color: var(--royal); }
-    textarea { min-height: 80px; resize: vertical; }
-    .form-field { margin-top: 12px; }
-    .estimate { margin-top: 16px; border-radius: 12px; padding: 14px; background: var(--blush); }
-    .estimate strong { display: block; color: var(--purple); font-family: Georgia, serif; font-size: 1.55rem; }
-    .quote-box .button { width: 100%; margin-top: 16px; }
-
-    .gallery-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
-    .gallery-item { position: relative; aspect-ratio: 9 / 12; overflow: hidden; border-radius: 16px; background: linear-gradient(135deg, var(--lilac), var(--blush), var(--gold)); }
-    .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
-    .gallery-fallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 14px; text-align: center; color: var(--royal); font-family: Georgia, serif; font-weight: 800; }
-
-    .policies { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    details { border: 1px solid #eadfeb; border-radius: 14px; background: var(--white); }
-    summary { cursor: pointer; padding: 14px 16px; color: var(--royal); font-weight: 800; }
-    details p { margin: 0; padding: 0 16px 16px; color: #6d5279; font-size: .88rem; }
-
-    .site-footer { padding: 42px 0 110px; background: var(--plum); color: rgba(255,255,255,.72); }
-    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .site-footer .brand { color: var(--white); }
-    .floating-actions { position: fixed; z-index: 19; right: 16px; bottom: 16px; display: flex; gap: 8px; }
-    .floating-actions .button { min-height: 48px; box-shadow: 0 8px 22px rgba(75,36,111,.22); }
-    .floating-order span { display: inline-grid; min-width: 20px; height: 20px; margin-left: 2px; place-items: center; border-radius: 50%; background: var(--pink); color: var(--royal); }
-
-    .cart-drawer { position: fixed; z-index: 30; inset: 0 0 0 auto; display: flex; width: min(410px,100%); transform: translateX(100%); flex-direction: column; background: var(--white); box-shadow: -10px 0 30px rgba(75,36,111,.18); transition: transform .3s ease; }
-    .cart-drawer.is-open { transform: translateX(0); }
-    .cart-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee6ed; padding: 20px 22px; }
-    .cart-head h2 { margin: 0; font-size: 1.7rem; }
-    .close-cart { border: 0; background: none; color: var(--purple); font-size: 1.5rem; }
-    .cart-items { flex: 1; overflow: auto; padding: 18px 22px; }
-    .cart-empty { padding: 35px 0; color: var(--purple); text-align: center; }
-    .cart-item { border-bottom: 1px solid #eee6ed; padding: 13px 0; }
-    .cart-item-top { display: flex; justify-content: space-between; gap: 12px; }
-    .cart-item strong { display: block; color: var(--royal); }
-    .cart-item small { color: var(--purple); }
-    .cart-item-controls { display: flex; align-items: center; gap: 7px; margin-top: 9px; }
-    .cart-item-controls button { width: 34px; height: 34px; border: 0; border-radius: 50%; background: var(--blush); color: var(--purple); }
-    .cart-remove { margin-left: auto; width: auto !important; border-radius: 999px !important; padding: 0 9px; font-size: .72rem; }
-    .cart-foot { border-top: 1px solid #eee6ed; padding: 18px 22px; }
-    .cart-total { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 800; }
-    .cart-total strong { color: var(--purple); }
-    .cart-foot .button { width: 100%; }
-    .toast { position: fixed; z-index: 40; left: 50%; bottom: 82px; transform: translate(-50%,20px); border-radius: 999px; padding: 11px 18px; background: var(--plum); color: var(--white); opacity: 0; pointer-events: none; transition: .25s; }
-    .toast.show { transform: translate(-50%,0); opacity: 1; }
-
-    @media (max-width: 900px) {
-      .container { width: min(100% - 30px, 620px); }
-      .nav-links { display: none; position: absolute; top: 68px; right: 15px; left: 15px; flex-direction: column; align-items: stretch; border: 1px solid rgba(218,168,92,.35); border-radius: 14px; padding: 8px; background: var(--royal); }
-      .nav-links.is-open { display: flex; }
-      .nav-links a { padding: 10px; }
-      .nav-menu { display: block; }
-      .menu-grid, .quote-grid, .champ-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .policies { grid-template-columns: 1fr; }
-      .footer-row { align-items: start; flex-direction: column; }
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: center;
     }
-    @media (max-width: 480px) {
-      .container { width: calc(100% - 24px); }
-      .site-header { top: 6px; }
-      .nav { min-height: 58px; border-radius: 15px; }
-      .seal { width: 44px; height: 44px; flex-basis: 44px; }
-      .brand-name { display: none; }
-      .hero { min-height: 690px; padding-top: 126px; }
-      h1 { font-size: clamp(2.65rem,14vw,4rem); }
-      .hero-actions, .hero-actions .button { width: 100%; }
-      .trust-pills { display: grid; grid-template-columns: 1fr; max-width: 290px; }
-      .champ-image, .champ-image img { min-height: 330px; height: 330px; }
-      .champ-card .option-list { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .menu-media video { height: 220px; }
-      .gallery-grid { gap: 8px; }
-      .gallery-item { border-radius: 12px; }
-      .floating-actions { right: 8px; bottom: 8px; left: 8px; gap: 7px; }
-      .floating-actions .button { flex: 1; min-height: 46px; padding-inline: 10px; font-size: .82rem; }
-      .site-footer { padding-bottom: 100px; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dorado-claro);
+      background: rgba(212, 155, 53, 0.14);
+      border: 1px solid rgba(212, 155, 53, 0.35);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 4.1rem);
+      line-height: 1.02;
+      color: var(--blanco);
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span {
+      color: var(--dorado-claro);
+      font-style: italic;
+    }
+
+    .hero-desc {
+      color: var(--rosa-pastel);
+      font-size: 1.02rem;
+      max-width: 540px;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--dorado-miel), var(--dorado-claro));
+      color: var(--morado-real);
+      padding: 13px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(212, 155, 53, 0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--blanco);
+      border: 1px solid rgba(247, 220, 230, 0.35);
+      padding: 13px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+    }
+
+    .info-chip {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radio-md);
+      padding: 11px 14px;
+      font-size: 0.84rem;
+      color: var(--lila-suave);
+    }
+
+    .info-chip strong {
+      display: block;
+      color: var(--dorado-claro);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+
+    .hero-showcase {
+      background: linear-gradient(145deg, rgba(247, 220, 230, 0.16), rgba(212, 155, 53, 0.18));
+      border: 1px solid rgba(242, 207, 132, 0.35);
+      border-radius: var(--radio-lg);
+      padding: 14px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-showcase img {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+    }
+
+    /* Secciones */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 46px 18px 10px;
+    }
+
+    .section-head {
+      margin-bottom: 26px;
+    }
+
+    .section-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--morado-medio);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      color: var(--morado-real);
+      line-height: 1.1;
+    }
+
+    .section-head p {
+      color: var(--texto-suave);
+      font-size: 0.96rem;
+      margin-top: 6px;
+    }
+
+    /* Grid de productos */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--blanco);
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-lg);
+      padding: 22px;
+      box-shadow: var(--sombra-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 38px rgba(43, 18, 76, 0.12);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .pill-tier {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--lila-suave);
+      color: var(--morado-real);
+    }
+
+    .pill-tier.especial {
+      background: linear-gradient(135deg, var(--rosa-pastel), #f6e1b8);
+      color: var(--cafe-calido);
+    }
+
+    .card h3 {
+      font-size: 1.55rem;
+      color: var(--morado-real);
+      margin-bottom: 6px;
+    }
+
+    .card-note {
+      font-size: 0.88rem;
+      color: var(--texto-suave);
+      margin-bottom: 16px;
+    }
+
+    .size-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .size-btn {
+      border: 1.5px solid var(--borde-suave);
+      background: var(--crema-fondo);
+      border-radius: var(--radio-md);
+      padding: 10px 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .size-btn.active {
+      border-color: var(--morado-real);
+      background: var(--lila-suave);
+      box-shadow: inset 0 0 0 1px var(--morado-real);
+    }
+
+    .size-btn .sz-label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--texto-suave);
+      font-weight: 600;
+    }
+
+    .size-btn .sz-price {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--morado-real);
+    }
+
+    .card-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .qty-box {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--borde-suave);
+      border-radius: 999px;
+      background: var(--crema-fondo);
+      padding: 3px;
+    }
+
+    .qty-box button {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--blanco);
+      color: var(--morado-real);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .qty-box span {
+      min-width: 28px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .btn-add {
+      flex: 1;
+      background: var(--morado-real);
+      color: var(--blanco);
+      border: none;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-add:hover {
+      background: var(--morado-medio);
+    }
+
+    /* Banner Tamales y Champurrado */
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .panel-box {
+      background: var(--blanco);
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-lg);
+      padding: 24px;
+      box-shadow: var(--sombra-card);
+    }
+
+    .flavor-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .flavor-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 16px;
+      border-radius: var(--radio-md);
+      background: var(--crema-fondo);
+      border: 1px solid var(--borde-suave);
+    }
+
+    .flavor-info strong {
+      display: block;
+      font-size: 0.98rem;
+      color: var(--morado-real);
+    }
+
+    .flavor-info span {
+      font-size: 0.85rem;
+      color: var(--cafe-calido);
+      font-weight: 600;
+    }
+
+    .poster-frame {
+      margin-bottom: 18px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--rosa-pastel), var(--lila-suave));
+    }
+
+    .poster-frame img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Galería multimedia inteligente (oculta cualquier video/foto que falle sin mostrar cuadros grises) */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .media-card {
+      background: var(--morado-real);
+      border-radius: var(--radio-lg);
+      overflow: hidden;
+      border: 1px solid rgba(212, 155, 53, 0.3);
+      box-shadow: var(--sombra-card);
+    }
+
+    .media-card video,
+    .media-card img {
+      width: 100%;
+      aspect-ratio: 9 / 14;
+      max-height: 410px;
+      object-fit: cover;
+      display: block;
+      background: #1a0b2e;
+    }
+
+    .media-caption {
+      padding: 12px 16px;
+      color: var(--lila-suave);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* Cotizador */
+    .quote-section {
+      background: linear-gradient(155deg, var(--morado-real) 0%, #3d1969 100%);
+      color: var(--blanco);
+      border-radius: 26px;
+      padding: 30px 22px;
+      box-shadow: 0 20px 45px rgba(43, 18, 76, 0.18);
+    }
+
+    .quote-section h2 {
+      color: var(--dorado-claro);
+      font-size: clamp(2rem, 5vw, 2.6rem);
+    }
+
+    .quote-section > p {
+      color: var(--rosa-pastel);
+      margin-bottom: 22px;
+    }
+
+    .quote-form {
+      background: var(--blanco);
+      color: var(--texto-oscuro);
+      border-radius: var(--radio-lg);
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--morado-real);
+      margin-bottom: 6px;
+    }
+
+    .field select,
+    .field input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: var(--radio-md);
+      border: 1.5px solid var(--borde-suave);
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: var(--crema-fondo);
+      color: var(--texto-oscuro);
+    }
+
+    .quote-result {
+      background: linear-gradient(135deg, var(--rosa-pastel), var(--lila-suave));
+      border-radius: var(--radio-md);
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .quote-result span {
+      font-size: 0.88rem;
+      color: var(--cafe-calido);
+      font-weight: 600;
+    }
+
+    .quote-result strong {
+      font-size: 1.5rem;
+      color: var(--morado-real);
+    }
+
+    /* Drawer Carrito */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 8, 36, 0.58);
+      z-index: 60;
+      display: none;
+    }
+
+    .drawer-backdrop.open {
+      display: block;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(100%, 420px);
+      height: 100%;
+      background: var(--blanco);
+      z-index: 70;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -12px 0 36px rgba(0, 0, 0, 0.2);
+    }
+
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-head {
+      background: var(--morado-real);
+      color: var(--blanco);
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-head h3 {
+      font-size: 1.5rem;
+      color: var(--dorado-claro);
+    }
+
+    .btn-close {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--blanco);
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 20px;
+      display: grid;
+      align-content: start;
+      gap: 12px;
+    }
+
+    .cart-item {
+      background: var(--crema-fondo);
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-md);
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-item-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--morado-real);
+    }
+
+    .cart-item-sub {
+      font-size: 0.8rem;
+      color: var(--texto-suave);
+    }
+
+    .drawer-foot {
+      border-top: 1px solid var(--borde-suave);
+      padding: 18px 20px;
+      background: var(--crema-fondo);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--morado-real);
+      margin-bottom: 14px;
+    }
+
+    /* Barra flotante móvil */
+    .floating-bar {
+      position: fixed;
+      bottom: 14px;
+      left: 14px;
+      right: 14px;
+      max-width: 560px;
+      margin: 0 auto;
+      z-index: 45;
+      background: var(--morado-real);
+      border: 1px solid rgba(212, 155, 53, 0.45);
+      border-radius: 999px;
+      padding: 10px 14px 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 14px 32px rgba(25, 10, 44, 0.35);
+      color: var(--blanco);
+    }
+
+    .floating-bar small {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--rosa-pastel);
+    }
+
+    .floating-bar strong {
+      font-size: 1rem;
+      color: var(--dorado-claro);
+    }
+
+    footer {
+      max-width: 1120px;
+      margin: 34px auto 0;
+      padding: 24px 18px;
+      border-top: 1px solid var(--borde-suave);
+      color: var(--texto-suave);
+      font-size: 0.86rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    @media (min-width: 820px) {
+      .nav-links {
+        display: flex;
+      }
+      .hero-inner {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+      .split-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .floating-bar {
+        display: none;
+      }
+      body {
+        padding-bottom: 24px;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="site-header" aria-label="Navegación principal">
-    <nav class="nav container" aria-label="Principal">
-      <a class="brand" href="#inicio" aria-label="ORO &amp; MIEL, inicio">
-        <span class="seal" aria-hidden="true">ORO<br>&amp; MIEL</span>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="#inicio" class="brand">
+        <span class="brand-badge">O&amp;M</span>
         <span class="brand-name">ORO &amp; MIEL</span>
       </a>
-      <button class="nav-menu" type="button" aria-expanded="false" aria-controls="nav-links">Menú</button>
-      <div class="nav-links" id="nav-links">
+      <nav class="nav-links" aria-label="Navegación principal">
         <a href="#roles">Roles</a>
-        <a href="#tamales">Tamales</a>
-        <a href="#champurrado">Champurrado</a>
+        <a href="#tamales-champurrado">Tamales y Champurrado</a>
         <a href="#cotizador">Cotizador</a>
-      </div>
-      <div class="nav-actions">
-        <button class="cart-header-button" type="button" data-open-cart>Carrito <span data-cart-count>0</span></button>
-      </div>
-    </nav>
+        <a href="#galeria">Galería</a>
+      </nav>
+      <button type="button" class="cart-pill" id="openCartTop" aria-label="Abrir carrito de pedido">
+        <span>Pedido</span>
+        <span id="topCount">(0)</span>
+      </button>
+    </div>
   </header>
 
-  <main>
-    <section class="hero" id="inicio">
-      <div class="hero-media" aria-hidden="true">
-        <img src="./assets/captura-menu-1.jpg" alt="">
-      </div>
-      <div class="container hero-content">
-        <p class="eyebrow">Hecho con cariño · Sabor artesanal</p>
-        <h1>ORO &amp; MIEL</h1>
-        <p>Roles suaves, tamales de receta casera y champurrado para compartir.</p>
+  <section class="hero" id="inicio">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">Repostería artesanal y sabor de casa · Tijuana, B.C.</span>
+        <h1>ORO <span>&amp;</span> MIEL</h1>
+        <p class="hero-desc">
+          Roles horneados al día con coberturas indulgentes, tamales tradicionales hechos en casa y champurrado caliente listo para recoger.
+        </p>
         <div class="hero-actions">
-          <a class="button button-gold" href="#roles">Ver menú</a>
-          <a class="button button-outline" href="#cotizador">Cotizar pedido</a>
+          <a href="#roles" class="btn-primary">Explorar menú</a>
+          <a href="#cotizador" class="btn-secondary">Cotizar evento</a>
         </div>
-        <div class="trust-pills" aria-label="Características">
-          <span>Preparación artesanal</span><span>Pedidos por WhatsApp</span><span>Presentaciones listas para compartir</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="roles">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">ROLES</p>
-          <h2>Elige tu sabor y tamaño</h2>
-        </div>
-        <div class="menu-grid">
-          <article class="menu-card" data-product-card data-name="Roll Oreo con cajeta" data-options="Grande:65:Grande $65,Pequeño:50:Pequeño $50">
-            <div class="menu-media video">
-              <span class="media-fallback" aria-hidden="true">ORO &amp; MIEL · Roll Oreo</span>
-              <video controls playsinline muted loop preload="metadata" aria-label="Roll Oreo con cajeta" poster="./assets/captura-menu-2.jpg">
-                <source src="./assets/oromiel-video-1.mp4" type="video/mp4">
-                Tu navegador no puede reproducir este video.
-              </video>
-            </div>
-            <div class="menu-card-body">
-              <div class="card-title"><h3>Roll Oreo con cajeta</h3></div>
-              <div class="option-list"></div>
-              <div class="quantity-row"><span>Cantidad</span><div class="quantity-control"><button type="button" data-minus aria-label="Disminuir cantidad">−</button><output data-quantity>1</output><button type="button" data-plus aria-label="Aumentar cantidad">+</button></div></div>
-              <button class="button button-primary add-button" type="button">Agregar al carrito</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-product-card data-name="Roll Mazapán con cajeta" data-options="Grande:65:Grande $65,Pequeño:50:Pequeño $50">
-            <div class="menu-media video">
-              <span class="media-fallback" aria-hidden="true">ORO &amp; MIEL · Roll Mazapán</span>
-              <video controls playsinline muted loop preload="metadata" aria-label="Roll Mazapán con cajeta" poster="./assets/captura-menu-1.jpg">
-                <source src="./assets/oromiel-video-2.mp4" type="video/mp4">
-                Tu navegador no puede reproducir este video.
-              </video>
-            </div>
-            <div class="menu-card-body">
-              <div class="card-title"><h3>Roll Mazapán con cajeta</h3></div>
-              <div class="option-list"></div>
-              <div class="quantity-row"><span>Cantidad</span><div class="quantity-control"><button type="button" data-minus aria-label="Disminuir cantidad">−</button><output data-quantity>1</output><button type="button" data-plus aria-label="Aumentar cantidad">+</button></div></div>
-              <button class="button button-primary add-button" type="button">Agregar al carrito</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-product-card data-name="Roll Fresa con Nutella" data-options="Grande:65:Grande $65,Pequeño:50:Pequeño $50">
-            <div class="menu-media video">
-              <span class="media-fallback" aria-hidden="true">ORO &amp; MIEL · Roll Fresa</span>
-              <video controls playsinline muted loop preload="metadata" aria-label="Roll Fresa con Nutella" poster="./assets/captura-menu-2.jpg">
-                <source src="./assets/oromiel-video-3.mp4" type="video/mp4">
-                Tu navegador no puede reproducir este video.
-              </video>
-            </div>
-            <div class="menu-card-body">
-              <div class="card-title"><h3>Roll Fresa con Nutella</h3></div>
-              <div class="option-list"></div>
-              <div class="quantity-row"><span>Cantidad</span><div class="quantity-control"><button type="button" data-minus aria-label="Disminuir cantidad">−</button><output data-quantity>1</output><button type="button" data-plus aria-label="Aumentar cantidad">+</button></div></div>
-              <button class="button button-primary add-button" type="button">Agregar al carrito</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-product-card data-name="Chocoflan" data-options="Grande:80:Grande $80,Pequeño:65:Pequeño $65">
-            <div class="menu-media" aria-label="Chocoflan">
-              <span class="media-fallback" aria-hidden="true">ORO &amp; MIEL · Chocoflan</span>
-            </div>
-            <div class="menu-card-body">
-              <div class="card-title"><h3>Chocoflan</h3></div>
-              <div class="option-list"></div>
-              <div class="quantity-row"><span>Cantidad</span><div class="quantity-control"><button type="button" data-minus aria-label="Disminuir cantidad">−</button><output data-quantity>1</output><button type="button" data-plus aria-label="Aumentar cantidad">+</button></div></div>
-              <button class="button button-primary add-button" type="button">Agregar al carrito</button>
-            </div>
-          </article>
-
-          <article class="menu-card" data-product-card data-name="Roll Galleta Lotus" data-options="Grande:80:Grande $80,Pequeño:65:Pequeño $65">
-            <div class="menu-media video">
-              <span class="media-fallback" aria-hidden="true">ORO &amp; MIEL · Galleta Lotus</span>
-              <video controls playsinline muted loop preload="metadata" aria-label="Roll Galleta Lotus" poster="./assets/captura-menu-1.jpg">
-                <source src="./assets/oromiel-video-4.mp4" type="video/mp4">
-                Tu navegador no puede reproducir este video.
-              </video>
-            </div>
-            <div class="menu-card-body">
-              <div class="card-title"><h3>Roll Galleta Lotus</h3></div>
-              <div class="option-list"></div>
-              <div class="quantity-row"><span>Cantidad</span><div class="quantity-control"><button type="button" data-minus aria-label="Disminuir cantidad">−</button><output data-quantity>1</output><button type="button" data-plus aria-label="Aumentar cantidad">+</button></div></div>
-              <button class="button button-primary add-button" type="button">Agregar al carrito</button>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="tamales">
-      <div class="container">
-        <div class="section-heading"><p class="eyebrow">TAMALES</p><h2>Sabores tradicionales — $35</h2></div>
-        <div class="menu-grid">
-          <article class="menu-card" data-product-card data-name="Tamales" data-options="Res salsa roja:35:Res salsa roja $35,Pollo salsa verde:35:Pollo salsa verde $35,Puerco salsa verde:35:Puerco salsa verde $35,Rajas con Quesos:35:Rajas con Quesos $35">
-            <div class="menu-media" aria-label="Tamales artesanales">
-              <span class="media-fallback" aria-hidden="true">ORO &amp; MIEL · Tamales — $35</span>
-            </div>
-            <div class="menu-card-body">
-              <div class="option-list"></div>
-              <div class="quantity-row"><span>Cantidad</span><div class="quantity-control"><button type="button" data-minus aria-label="Disminuir cantidad">−</button><output data-quantity>1</output><button type="button" data-plus aria-label="Aumentar cantidad">+</button></div></div>
-              <button class="button button-primary add-button" type="button">Agregar al carrito</button>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section champurrado" id="champurrado">
-      <div class="container champ-grid">
-        <div class="champ-image">
-          <span class="champ-fallback" aria-hidden="true">Champurrado<br>ORO &amp; MIEL</span>
-          <img src="./assets/captura-menu-2.jpg" alt="Presentaciones de champurrado">
-        </div>
-        <div class="champ-card" data-product-card data-name="Champurrado" data-options="Vaso 10 oz:20:Vaso 10 oz $20,Vaso 12 oz:30:Vaso 12 oz $30,Vaso 16 oz:40:Vaso 16 oz $40">
-          <p class="eyebrow">Champurrado</p>
-          <h2>Elige tu presentación</h2>
-          <div class="option-list"></div>
-          <div class="quantity-row"><span>Cantidad</span><div class="quantity-control"><button type="button" data-minus aria-label="Disminuir cantidad">−</button><output data-quantity>1</output><button type="button" data-plus aria-label="Aumentar cantidad">+</button></div></div>
-          <button class="button button-primary add-button" type="button">Agregar al carrito</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section quote-section" id="cotizador">
-      <div class="container quote-grid">
-        <div>
-          <p class="eyebrow">Cotizador</p>
-          <h2>Arma tu pedido</h2>
-          <p>Calcula una estimación y envíala directamente por WhatsApp.</p>
-        </div>
-        <form class="quote-box" id="quote-form">
-          <div class="form-row">
-            <div>
-              <label for="quote-category">Categoría</label>
-              <select id="quote-category">
-                <option value="roles">Roles</option>
-                <option value="tamales">Tamales</option>
-                <option value="champurrado">Champurrado</option>
-              </select>
-            </div>
-            <div>
-              <label for="quote-option">Presentación / sabor</label>
-              <select id="quote-option"></select>
-            </div>
+        <div class="info-strip">
+          <div class="info-chip">
+            <strong>Modalidad</strong>
+            Pickup únicamente (recoge en punto)
           </div>
-          <div class="form-field">
-            <label for="quote-quantity">Cantidad</label>
-            <input id="quote-quantity" type="number" min="1" max="99" value="1" inputmode="numeric">
+          <div class="info-chip">
+            <strong>Días y horario</strong>
+            Lun, Mar, Jue y Vie · 7:00 AM – 7:00 PM
           </div>
-          <div class="estimate">Estimado <strong id="quote-total">$0 MXN</strong></div>
-          <button class="button button-primary" id="quote-whatsapp" type="submit">Cotizar por WhatsApp ↗</button>
-        </form>
+          <div class="info-chip">
+            <strong>Pedidos directos</strong>
+            WhatsApp +52 664 388 3535
+          </div>
+        </div>
       </div>
+
+      <div class="hero-showcase" id="heroMediaBox">
+        <img src="./assets/captura-menu-1.jpg" alt="Especialidades artesanales ORO & MIEL" decoding="async" onerror="this.closest('.hero-showcase').style.display='none'" />
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- SECCIÓN ROLES -->
+    <section class="container" id="roles">
+      <div class="section-head">
+        <span class="section-tag">Horneados artesanalmente</span>
+        <h2>ROLES</h2>
+        <p>Selecciona tu sabor favorito y elige entre tamaño Pequeño o Grande.</p>
+      </div>
+
+      <div class="grid-cards" id="rolesGrid"></div>
     </section>
 
-    <section class="section" aria-label="Galería de videos">
-      <div class="container">
-        <div class="section-heading"><p class="eyebrow">Nuestras preparaciones</p><h2>ORO &amp; MIEL en movimiento</h2></div>
-        <div class="gallery-grid">
-          <div class="gallery-item"><span class="gallery-fallback">ORO &amp; MIEL</span><video controls playsinline muted loop preload="metadata" poster="./assets/captura-menu-1.jpg"><source src="./assets/oromiel-video-1.mp4" type="video/mp4"></video></div>
-          <div class="gallery-item"><span class="gallery-fallback">ORO &amp; MIEL</span><video controls playsinline muted loop preload="metadata" poster="./assets/captura-menu-2.jpg"><source src="./assets/oromiel-video-2.mp4" type="video/mp4"></video></div>
-          <div class="gallery-item"><span class="gallery-fallback">ORO &amp; MIEL</span><video controls playsinline muted loop preload="metadata" poster="./assets/captura-menu-1.jpg"><source src="./assets/oromiel-video-3.mp4" type="video/mp4"></video></div>
-          <div class="gallery-item"><span class="gallery-fallback">ORO &amp; MIEL</span><video controls playsinline muted loop preload="metadata" poster="./assets/captura-menu-2.jpg"><source src="./assets/oromiel-video-4.mp4" type="video/mp4"></video></div>
+    <!-- SECCIÓN TAMALES Y CHAMPURRADO -->
+    <section class="container" id="tamales-champurrado">
+      <div class="split-grid">
+        <!-- TAMALES -->
+        <div class="panel-box">
+          <span class="section-tag">Receta tradicional · $35 MXN c/u</span>
+          <h2 style="font-size:2.2rem;color:var(--morado-real);">TAMALES — $35</h2>
+          <p style="color:var(--texto-suave);font-size:0.93rem;margin-top:4px;">
+            Preparados con masa suave y guisos caseros bien servidos.
+          </p>
+          <div class="flavor-list" id="tamalesList"></div>
+        </div>
+
+        <!-- CHAMPURRADO -->
+        <div class="panel-box">
+          <div class="poster-frame">
+            <img src="./assets/captura-menu-2.jpg" alt="Champurrado tradicional ORO & MIEL" loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'" />
+          </div>
+          <span class="section-tag">Bebida caliente de cacao y maíz</span>
+          <h2 style="font-size:2.2rem;color:var(--morado-real);">Champurrado</h2>
+          <p style="color:var(--texto-suave);font-size:0.93rem;margin-top:4px;">
+            Elige el tamaño de vaso ideal para acompañar tus tamales o roles.
+          </p>
+          <div class="flavor-list" id="champurradoList"></div>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-label="Políticas">
-      <div class="container policies">
-        <details><summary>Pedidos y entrega</summary><p>Confirma disponibilidad, tiempos y modalidad de entrega directamente por WhatsApp antes de pagar.</p></details>
-        <details><summary>Forma de pedido</summary><p>El carrito permite ajustar cantidades y genera un resumen seguro para enviar por WhatsApp.</p></details>
+    <!-- COTIZADOR -->
+    <section class="container" id="cotizador">
+      <div class="quote-section">
+        <span class="eyebrow" style="margin-bottom:10px;">Reuniones y eventos</span>
+        <h2>Arma tu cotización</h2>
+        <p>Calcula al instante el estimado para tu mesa de postres, oficina o reunión familiar y envíalo por WhatsApp.</p>
+
+        <div class="quote-form">
+          <div class="field">
+            <label for="quoteProduct">Producto</label>
+            <select id="quoteProduct">
+              <option value="50">Roles Clásicos (Oreo / Mazapán / Fresa) — Pequeño ($50)</option>
+              <option value="65">Roles Clásicos (Oreo / Mazapán / Fresa) — Grande ($65)</option>
+              <option value="65">Roles Especiales (Chocoflan / Galleta Lotus) — Pequeño ($65)</option>
+              <option value="80">Roles Especiales (Chocoflan / Galleta Lotus) — Grande ($80)</option>
+              <option value="35">Tamales Tradicionales ($35 c/u)</option>
+              <option value="20">Champurrado Vaso 10 oz ($20)</option>
+              <option value="30">Champurrado Vaso 12 oz ($30)</option>
+              <option value="40">Champurrado Vaso 16 oz ($40)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="quoteQty">Cantidad de piezas o vasos</label>
+            <input type="number" id="quoteQty" min="1" max="500" value="12" />
+          </div>
+          <div class="quote-result">
+            <span>Total estimado (Pickup):</span>
+            <strong id="quoteTotal">$600 MXN</strong>
+          </div>
+          <button type="button" class="btn-primary" id="sendQuoteBtn" style="width:100%;">
+            Solicitar cotización por WhatsApp
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA MULTIMEDIA INTELIGENTE -->
+    <section class="container" id="galeria">
+      <div class="section-head">
+        <span class="section-tag">Hecho en casa</span>
+        <h2>ORO &amp; MIEL en movimiento</h2>
+        <p>Nuestras preparaciones recién salidas de cocina.</p>
+      </div>
+
+      <div class="media-grid" id="mediaGrid">
+        <div class="media-card">
+          <video controls playsinline muted loop preload="metadata">
+            <source src="./assets/oromiel-video-1.mp4" type="video/mp4" />
+          </video>
+          <div class="media-caption">Preparación artesanal ORO &amp; MIEL</div>
+        </div>
+        <div class="media-card">
+          <video controls playsinline muted loop preload="metadata">
+            <source src="./assets/oromiel-video-2.mp4" type="video/mp4" />
+          </video>
+          <div class="media-caption">Glaseado y toppings al momento</div>
+        </div>
+        <div class="media-card">
+          <video controls playsinline muted loop preload="metadata">
+            <source src="./assets/oromiel-video-3.mp4" type="video/mp4" />
+          </video>
+          <div class="media-caption">Textura suave recién horneada</div>
+        </div>
+        <div class="media-card">
+          <video controls playsinline muted loop preload="metadata">
+            <source src="./assets/oromiel-video-4.mp4" type="video/mp4" />
+          </video>
+          <div class="media-caption">Pedidos listos para entrega</div>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-row">
-      <a class="brand" href="#inicio"><span class="seal" aria-hidden="true">ORO<br>&amp; MIEL</span><span class="brand-name">ORO &amp; MIEL</span></a>
-      <small>© <span id="year"></span> ORO &amp; MIEL</small>
+  <footer>
+    <div>
+      <strong style="color:var(--morado-real);">ORO &amp; MIEL</strong> · Tijuana, Baja California, México · Col. Chula Vista
+    </div>
+    <div>
+      Pickup · Lunes, Martes, Jueves y Viernes de 7:00 AM a 7:00 PM · WhatsApp +52 664 388 3535
     </div>
   </footer>
 
-  <div class="floating-actions">
-    <button class="button button-gold floating-order" type="button" data-open-cart>Mi pedido <span data-cart-count>0</span></button>
+  <!-- BARRA FLOTANTE MÓVIL -->
+  <div class="floating-bar">
+    <div>
+      <small>Tu pedido actual</small>
+      <strong id="floatSummary">0 artículos · $0 MXN</strong>
+    </div>
+    <button type="button" class="btn-primary" id="openCartFloat" style="padding:10px 18px;font-size:0.86rem;">
+      Ver pedido
+    </button>
   </div>
 
-  <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cart-title">
-    <div class="cart-head"><h2 id="cart-title">Tu carrito</h2><button class="close-cart" type="button" data-close-cart aria-label="Cerrar carrito">×</button></div>
-    <div class="cart-items" id="cart-items"></div>
-    <div class="cart-foot">
-      <div class="cart-total"><span>Subtotal</span><strong id="cart-total">$0 MXN</strong></div>
-      <a class="button button-primary" id="cart-whatsapp" target="_blank" rel="noopener noreferrer" href="https://wa.me/526643883535">Enviar pedido por WhatsApp ↗</a>
+  <!-- DRAWER CARRITO -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="cartDrawer" aria-label="Carrito de pedido">
+    <div class="drawer-head">
+      <h3>Tu Pedido</h3>
+      <button type="button" class="btn-close" id="closeCartBtn" aria-label="Cerrar pedido">✕</button>
+    </div>
+    <div class="drawer-body" id="cartItemsContainer"></div>
+    <div class="drawer-foot">
+      <div class="total-row">
+        <span>Total estimado</span>
+        <span id="cartTotal">$0 MXN</span>
+      </div>
+      <button type="button" class="btn-primary" id="checkoutWaBtn" style="width:100%;">
+        Enviar pedido por WhatsApp
+      </button>
     </div>
   </aside>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    (() => {
-      "use strict";
+    (function () {
+      'use strict';
 
-      const WHATSAPP_NUMBER = "526643883535";
-      const cart = [];
+      const WHATSAPP_NUMBER = '526643883535';
 
-      const money = (value) => `$${Number(value).toFixed(0)} MXN`;
+      const ROLES_DATA = [
+        {
+          id: 'rol-oreo',
+          name: 'Roll Oreo con cajeta',
+          tier: 'Clásico',
+          isSpecial: false,
+          note: 'Rol esponjoso con trozos de galleta Oreo y baño de cajeta artesanal.',
+          sizes: [
+            { label: 'Pequeño', price: 50 },
+            { label: 'Grande', price: 65 }
+          ]
+        },
+        {
+          id: 'rol-mazapan',
+          name: 'Roll Mazapán con cajeta',
+          tier: 'Clásico',
+          isSpecial: false,
+          note: 'Cobertura cremosa de mazapán de cacahuate con hilos de cajeta.',
+          sizes: [
+            { label: 'Pequeño', price: 50 },
+            { label: 'Grande', price: 65 }
+          ]
+        },
+        {
+          id: 'rol-fresa',
+          name: 'Roll Fresa con Nutella',
+          tier: 'Clásico',
+          isSpecial: false,
+          note: 'Fresas frescas seleccionadas sobre cobertura de crema de avellanas.',
+          sizes: [
+            { label: 'Pequeño', price: 50 },
+            { label: 'Grande', price: 65 }
+          ]
+        },
+        {
+          id: 'chocoflan',
+          name: 'Chocoflan',
+          tier: 'Especialidad',
+          isSpecial: true,
+          note: 'Combinación perfecta de pan de chocolate húmedo y flan napolitano.',
+          sizes: [
+            { label: 'Pequeño', price: 65 },
+            { label: 'Grande', price: 80 }
+          ]
+        },
+        {
+          id: 'rol-lotus',
+          name: 'Roll Galleta Lotus',
+          tier: 'Especialidad',
+          isSpecial: true,
+          note: 'Crema especiada Biscoff y galleta Lotus caramelizada crujiente.',
+          sizes: [
+            { label: 'Pequeño', price: 65 },
+            { label: 'Grande', price: 80 }
+          ]
+        }
+      ];
 
-      const parseOptions = (card) => card.dataset.options.split(",").map((entry) => {
-        const [name, price, label] = entry.split(":");
-        return { name, price: Number(price), label };
-      });
+      const TAMALES_DATA = [
+        { id: 'tamal-res', name: 'Res salsa roja', price: 35 },
+        { id: 'tamal-pollo', name: 'Pollo salsa verde', price: 35 },
+        { id: 'tamal-puerco', name: 'Puerco salsa verde', price: 35 },
+        { id: 'tamal-rajas', name: 'Rajas con Quesos', price: 35 }
+      ];
 
-      document.querySelectorAll("[data-product-card]").forEach((card) => {
-        const options = parseOptions(card);
-        const list = card.querySelector(".option-list");
-        options.forEach((option, index) => {
-          const label = document.createElement("label");
-          label.className = "option";
-          const radio = document.createElement("input");
-          radio.type = "radio";
-          radio.name = `option-${Array.from(document.querySelectorAll("[data-product-card]")).indexOf(card)}`;
-          radio.value = option.name;
-          radio.dataset.price = String(option.price);
-          radio.dataset.label = option.label;
-          radio.checked = index === 0;
-          const name = document.createElement("span");
-          name.className = "option-name";
-          name.textContent = option.label;
-          label.append(radio, name);
-          list.append(label);
-        });
+      const CHAMPURRADO_DATA = [
+        { id: 'champ-10', name: 'Champurrado · Vaso 10 oz', price: 20 },
+        { id: 'champ-12', name: 'Champurrado · Vaso 12 oz', price: 30 },
+        { id: 'champ-16', name: 'Champurrado · Vaso 16 oz', price: 40 }
+      ];
 
-        let quantity = 1;
-        const output = card.querySelector("[data-quantity]");
-        card.querySelector("[data-minus]").addEventListener("click", () => {
-          quantity = Math.max(1, quantity - 1);
-          output.value = String(quantity);
-          output.textContent = String(quantity);
-        });
-        card.querySelector("[data-plus]").addEventListener("click", () => {
-          quantity = Math.min(99, quantity + 1);
-          output.value = String(quantity);
-          output.textContent = String(quantity);
-        });
-        card.querySelector(".add-button").addEventListener("click", () => {
-          const selected = card.querySelector('input[type="radio"]:checked');
-          if (!selected) return;
-          const itemName = card.dataset.name === "Tamales" ? `Tamales · ${selected.value}` : `${card.dataset.name} · ${selected.value}`;
-          const existing = cart.find((item) => item.key === `${itemName}-${selected.dataset.price}`);
-          if (existing) {
-            existing.quantity = Math.min(99, existing.quantity + quantity);
-          } else {
-            cart.push({ key: `${itemName}-${selected.dataset.price}`, name: itemName, price: Number(selected.dataset.price), quantity });
+      const cart = new Map();
+
+      function formatMXN(amount) {
+        return '$' + amount.toLocaleString('es-MX') + ' MXN';
+      }
+
+      // Ocultar videos que no carguen para evitar cajas grises rotas
+      document.querySelectorAll('#mediaGrid video').forEach((videoEl) => {
+        const sourceEl = videoEl.querySelector('source');
+        const hideCard = () => {
+          const card = videoEl.closest('.media-card');
+          if (card) card.style.display = 'none';
+          const visibleCards = Array.from(document.querySelectorAll('#mediaGrid .media-card'))
+            .filter((c) => c.style.display !== 'none');
+          if (visibleCards.length === 0) {
+            const galeriaSec = document.getElementById('galeria');
+            if (galeriaSec) galeriaSec.style.display = 'none';
           }
-          renderCart();
-          showToast("Agregado al carrito");
-        });
+        };
+        videoEl.addEventListener('error', hideCard);
+        if (sourceEl) sourceEl.addEventListener('error', hideCard);
       });
 
-      const drawer = document.getElementById("cart-drawer");
-      const openCart = () => {
-        drawer.classList.add("is-open");
-        drawer.setAttribute("aria-hidden", "false");
-        document.body.classList.add("drawer-open");
-        drawer.querySelector(".close-cart").focus();
-      };
-      const closeCart = () => {
-        drawer.classList.remove("is-open");
-        drawer.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("drawer-open");
-      };
-      document.querySelectorAll("[data-open-cart]").forEach((button) => button.addEventListener("click", openCart));
-      document.querySelector("[data-close-cart]").addEventListener("click", closeCart);
-      drawer.addEventListener("keydown", (event) => { if (event.key === "Escape") closeCart(); });
+      // Render Roles
+      const rolesGrid = document.getElementById('rolesGrid');
+      ROLES_DATA.forEach((role) => {
+        let selectedSizeIndex = 1; // Grande por defecto
+        let qty = 1;
 
-      const cartItems = document.getElementById("cart-items");
-      const cartTotal = document.getElementById("cart-total");
-      const cartWhatsApp = document.getElementById("cart-whatsapp");
+        const card = document.createElement('article');
+        card.className = 'card';
+
+        const topDiv = document.createElement('div');
+        const headRow = document.createElement('div');
+        headRow.className = 'card-top';
+
+        const pill = document.createElement('span');
+        pill.className = 'pill-tier' + (role.isSpecial ? ' especial' : '');
+        pill.textContent = role.tier;
+        headRow.appendChild(pill);
+
+        const title = document.createElement('h3');
+        title.textContent = role.name;
+
+        const note = document.createElement('p');
+        note.className = 'card-note';
+        note.textContent = role.note;
+
+        topDiv.appendChild(headRow);
+        topDiv.appendChild(title);
+        topDiv.appendChild(note);
+
+        const bottomDiv = document.createElement('div');
+        const sizesWrap = document.createElement('div');
+        sizesWrap.className = 'size-options';
+
+        const sizeButtons = role.sizes.map((sz, idx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'size-btn' + (idx === selectedSizeIndex ? ' active' : '');
+
+          const lbl = document.createElement('span');
+          lbl.className = 'sz-label';
+          lbl.textContent = sz.label;
+
+          const prc = document.createElement('span');
+          prc.className = 'sz-price';
+          prc.textContent = '$' + sz.price;
+
+          btn.appendChild(lbl);
+          btn.appendChild(prc);
+
+          btn.addEventListener('click', () => {
+            selectedSizeIndex = idx;
+            sizeButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+          });
+
+          sizesWrap.appendChild(btn);
+          return btn;
+        });
+
+        const controls = document.createElement('div');
+        controls.className = 'card-controls';
+
+        const qtyBox = document.createElement('div');
+        qtyBox.className = 'qty-box';
+
+        const minusBtn = document.createElement('button');
+        minusBtn.type = 'button';
+        minusBtn.textContent = '−';
+        minusBtn.setAttribute('aria-label', 'Restar cantidad');
+
+        const qtyVal = document.createElement('span');
+        qtyVal.textContent = '1';
+
+        const plusBtn = document.createElement('button');
+        plusBtn.type = 'button';
+        plusBtn.textContent = '+';
+        plusBtn.setAttribute('aria-label', 'Sumar cantidad');
+
+        minusBtn.addEventListener('click', () => {
+          if (qty > 1) {
+            qty--;
+            qtyVal.textContent = String(qty);
+          }
+        });
+
+        plusBtn.addEventListener('click', () => {
+          qty++;
+          qtyVal.textContent = String(qty);
+        });
+
+        qtyBox.appendChild(minusBtn);
+        qtyBox.appendChild(qtyVal);
+        qtyBox.appendChild(plusBtn);
+
+        const addBtn = document.createElement('button');
+        addBtn.type = 'button';
+        addBtn.className = 'btn-add';
+        addBtn.textContent = 'Agregar';
+        addBtn.addEventListener('click', () => {
+          const chosen = role.sizes[selectedSizeIndex];
+          addToCart(
+            role.id + '-' + chosen.label.toLowerCase(),
+            role.name + ' (' + chosen.label + ')',
+            chosen.price,
+            qty
+          );
+          qty = 1;
+          qtyVal.textContent = '1';
+        });
+
+        controls.appendChild(qtyBox);
+        controls.appendChild(addBtn);
+
+        bottomDiv.appendChild(sizesWrap);
+        bottomDiv.appendChild(controls);
+
+        card.appendChild(topDiv);
+        card.appendChild(bottomDiv);
+        rolesGrid.appendChild(card);
+      });
+
+      // Render listas de Tamales y Champurrado
+      function renderSimpleList(containerId, items, prefixLabel) {
+        const container = document.getElementById(containerId);
+        items.forEach((item) => {
+          const row = document.createElement('div');
+          row.className = 'flavor-row';
+
+          const info = document.createElement('div');
+          info.className = 'flavor-info';
+
+          const strong = document.createElement('strong');
+          strong.textContent = item.name;
+
+          const span = document.createElement('span');
+          span.textContent = '$' + item.price + ' MXN';
+
+          info.appendChild(strong);
+          info.appendChild(span);
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-add';
+          btn.style.flex = '0 0 auto';
+          btn.style.padding = '9px 16px';
+          btn.textContent = '+ Agregar';
+          btn.addEventListener('click', () => {
+            const fullName = prefixLabel ? prefixLabel + ': ' + item.name : item.name;
+            addToCart(item.id, fullName, item.price, 1);
+          });
+
+          row.appendChild(info);
+          row.appendChild(btn);
+          container.appendChild(row);
+        });
+      }
+
+      renderSimpleList('tamalesList', TAMALES_DATA, 'Tamal');
+      renderSimpleList('champurradoList', CHAMPURRADO_DATA, '');
+
+      // Lógica del carrito
+      function addToCart(key, title, price, quantity) {
+        if (cart.has(key)) {
+          const existing = cart.get(key);
+          existing.qty += quantity;
+        } else {
+          cart.set(key, { key, title, price, qty: quantity });
+        }
+        renderCart();
+      }
+
+      function updateItemQty(key, delta) {
+        if (!cart.has(key)) return;
+        const item = cart.get(key);
+        item.qty += delta;
+        if (item.qty <= 0) {
+          cart.delete(key);
+        }
+        renderCart();
+      }
 
       function renderCart() {
-        cartItems.replaceChildren();
-        let subtotal = 0;
-        let count = 0;
-        if (!cart.length) {
-          const empty = document.createElement("p");
-          empty.className = "cart-empty";
-          empty.textContent = "Tu carrito está vacío.";
-          cartItems.append(empty);
+        const container = document.getElementById('cartItemsContainer');
+        container.textContent = '';
+
+        let totalQty = 0;
+        let totalAmount = 0;
+
+        if (cart.size === 0) {
+          const empty = document.createElement('p');
+          empty.style.color = 'var(--texto-suave)';
+          empty.style.textAlign = 'center';
+          empty.style.padding = '32px 12px';
+          empty.textContent = 'Aún no has agregado productos a tu pedido.';
+          container.appendChild(empty);
         } else {
           cart.forEach((item) => {
-            subtotal += item.price * item.quantity;
-            count += item.quantity;
-            const row = document.createElement("div");
-            row.className = "cart-item";
-            const top = document.createElement("div");
-            top.className = "cart-item-top";
-            const info = document.createElement("div");
-            const name = document.createElement("strong");
-            name.textContent = item.name;
-            const detail = document.createElement("small");
-            detail.textContent = `${item.quantity} × ${money(item.price)}`;
-            info.append(name, detail);
-            const lineTotal = document.createElement("strong");
-            lineTotal.textContent = money(item.price * item.quantity);
-            top.append(info, lineTotal);
-            const controls = document.createElement("div");
-            controls.className = "cart-item-controls";
-            const minus = document.createElement("button");
-            minus.type = "button";
-            minus.textContent = "−";
-            minus.setAttribute("aria-label", "Disminuir");
-            const plus = document.createElement("button");
-            plus.type = "button";
-            plus.textContent = "+";
-            plus.setAttribute("aria-label", "Aumentar");
-            const remove = document.createElement("button");
-            remove.type = "button";
-            remove.className = "cart-remove";
-            remove.textContent = "Eliminar";
-            minus.addEventListener("click", () => { item.quantity = Math.max(1, item.quantity - 1); renderCart(); });
-            plus.addEventListener("click", () => { item.quantity = Math.min(99, item.quantity + 1); renderCart(); });
-            remove.addEventListener("click", () => { cart.splice(cart.indexOf(item), 1); renderCart(); });
-            controls.append(minus, plus, remove);
-            row.append(top, controls);
-            cartItems.append(row);
+            totalQty += item.qty;
+            totalAmount += item.price * item.qty;
+
+            const row = document.createElement('div');
+            row.className = 'cart-item';
+
+            const left = document.createElement('div');
+            const title = document.createElement('div');
+            title.className = 'cart-item-title';
+            title.textContent = item.title;
+
+            const sub = document.createElement('div');
+            sub.className = 'cart-item-sub';
+            sub.textContent = '$' + item.price + ' c/u · Subtotal: $' + (item.price * item.qty);
+
+            left.appendChild(title);
+            left.appendChild(sub);
+
+            const right = document.createElement('div');
+            right.className = 'qty-box';
+
+            const dec = document.createElement('button');
+            dec.type = 'button';
+            dec.textContent = '−';
+            dec.addEventListener('click', () => updateItemQty(item.key, -1));
+
+            const num = document.createElement('span');
+            num.textContent = String(item.qty);
+
+            const inc = document.createElement('button');
+            inc.type = 'button';
+            inc.textContent = '+';
+            inc.addEventListener('click', () => updateItemQty(item.key, 1));
+
+            right.appendChild(dec);
+            right.appendChild(num);
+            right.appendChild(inc);
+
+            row.appendChild(left);
+            row.appendChild(right);
+            container.appendChild(row);
           });
         }
-        cartTotal.textContent = money(subtotal);
-        document.querySelectorAll("[data-cart-count]").forEach((counter) => {
-          counter.textContent = String(count);
-          counter.classList.remove("bump");
-          void counter.offsetWidth;
-          counter.classList.add("bump");
-        });
-        const lines = cart.map((item) => `• ${item.quantity} × ${item.name} — ${money(item.price * item.quantity)}`);
-        const message = cart.length ? `Hola, quiero hacer este pedido:\n\n${lines.join("\n")}\n\nSubtotal: ${money(subtotal)}` : "Hola, quiero hacer un pedido.";
-        cartWhatsApp.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+        document.getElementById('topCount').textContent = '(' + totalQty + ')';
+        document.getElementById('cartTotal').textContent = formatMXN(totalAmount);
+        document.getElementById('floatSummary').textContent =
+          totalQty + (totalQty === 1 ? ' artículo · ' : ' artículos · ') + formatMXN(totalAmount);
       }
 
-      const quoteCategory = document.getElementById("quote-category");
-      const quoteOption = document.getElementById("quote-option");
-      const quoteQuantity = document.getElementById("quote-quantity");
-      const quoteTotal = document.getElementById("quote-total");
-      const quoteConfigs = {
-        roles: [
-          ["Roll Oreo con cajeta · Grande", 65], ["Roll Oreo con cajeta · Pequeño", 50],
-          ["Roll Mazapán con cajeta · Grande", 65], ["Roll Mazapán con cajeta · Pequeño", 50],
-          ["Roll Fresa con Nutella · Grande", 65], ["Roll Fresa con Nutella · Pequeño", 50],
-          ["Chocoflan · Grande", 80], ["Chocoflan · Pequeño", 65],
-          ["Roll Galleta Lotus · Grande", 80], ["Roll Galleta Lotus · Pequeño", 65]
-        ],
-        tamales: [
-          ["Res salsa roja", 35], ["Pollo salsa verde", 35], ["Puerco salsa verde", 35], ["Rajas con Quesos", 35]
-        ],
-        champurrado: [["Vaso 10 oz", 20], ["Vaso 12 oz", 30], ["Vaso 16 oz", 40]]
-      };
+      // Drawer open/close
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('drawerBackdrop');
 
-      function updateQuoteOptions() {
-        quoteOption.replaceChildren();
-        quoteConfigs[quoteCategory.value].forEach(([name, price]) => {
-          const option = document.createElement("option");
-          option.value = String(price);
-          option.textContent = `${name} · ${money(price)}`;
-          option.dataset.name = name;
-          quoteOption.append(option);
-        });
-        updateQuote();
+      function openDrawer() {
+        drawer.classList.add('open');
+        backdrop.classList.add('open');
       }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        backdrop.classList.remove('open');
+      }
+
+      document.getElementById('openCartTop').addEventListener('click', openDrawer);
+      document.getElementById('openCartFloat').addEventListener('click', openDrawer);
+      document.getElementById('closeCartBtn').addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
+
+      // Envío seguro a WhatsApp del carrito
+      document.getElementById('checkoutWaBtn').addEventListener('click', () => {
+        if (cart.size === 0) {
+          alert('Agrega al menos un producto antes de enviar tu pedido.');
+          return;
+        }
+        const lines = [
+          'Hola ORO & MIEL, me gustaría hacer el siguiente pedido (Pickup):',
+          ''
+        ];
+        let total = 0;
+        cart.forEach((item) => {
+          const sub = item.price * item.qty;
+          total += sub;
+          lines.push('• ' + item.qty + 'x ' + item.title + ' — $' + sub + ' MXN');
+        });
+        lines.push('');
+        lines.push('Total estimado: ' + formatMXN(total));
+        lines.push('Horario de atención: Lun, Mar, Jue y Vie de 7:00 AM a 7:00 PM.');
+
+        const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+        window.open(url, '_blank', 'noopener,noreferrer');
+      });
+
+      // Cotizador dinámico
+      const quoteProduct = document.getElementById('quoteProduct');
+      const quoteQty = document.getElementById('quoteQty');
+      const quoteTotal = document.getElementById('quoteTotal');
 
       function updateQuote() {
-        const quantity = Math.min(99, Math.max(1, Number(quoteQuantity.value) || 1));
-        quoteQuantity.value = String(quantity);
-        const price = Number(quoteOption.value) || 0;
-        quoteTotal.textContent = money(quantity * price);
+        const unitPrice = Number(quoteProduct.value) || 0;
+        const count = Math.max(1, Math.min(500, Number(quoteQty.value) || 1));
+        quoteTotal.textContent = formatMXN(unitPrice * count);
       }
 
-      quoteCategory.addEventListener("change", updateQuoteOptions);
-      quoteOption.addEventListener("change", updateQuote);
-      quoteQuantity.addEventListener("input", updateQuote);
-      updateQuoteOptions();
+      quoteProduct.addEventListener('change', updateQuote);
+      quoteQty.addEventListener('input', updateQuote);
 
-      document.getElementById("quote-form").addEventListener("submit", (event) => {
-        event.preventDefault();
-        const selected = quoteOption.selectedOptions[0];
-        const quantity = Math.min(99, Math.max(1, Number(quoteQuantity.value) || 1));
-        const total = quantity * (Number(quoteOption.value) || 0);
-        const name = selected.dataset.name || "";
-        const message = `Hola, quiero cotizar:\n\n• ${quantity} × ${name}\n\nEstimado: ${money(total)}`;
-        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        const link = document.createElement("a");
-        link.href = url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.click();
+      document.getElementById('sendQuoteBtn').addEventListener('click', () => {
+        const selectedOption = quoteProduct.options[quoteProduct.selectedIndex].text;
+        const unitPrice = Number(quoteProduct.value) || 0;
+        const count = Math.max(1, Math.min(500, Number(quoteQty.value) || 1));
+        const total = unitPrice * count;
+
+        const msg = [
+          'Hola ORO & MIEL, quisiera cotizar un pedido especial:',
+          '• Producto: ' + selectedOption,
+          '• Cantidad: ' + count + ' piezas/vasos',
+          '• Estimado: ' + formatMXN(total)
+        ].join('\n');
+
+        const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
+        window.open(url, '_blank', 'noopener,noreferrer');
       });
 
-      document.querySelector(".nav-menu").addEventListener("click", (event) => {
-        const links = document.getElementById("nav-links");
-        const open = links.classList.toggle("is-open");
-        event.currentTarget.setAttribute("aria-expanded", String(open));
-      });
-      document.querySelectorAll(".nav-links a").forEach((link) => link.addEventListener("click", () => {
-        document.getElementById("nav-links").classList.remove("is-open");
-        document.querySelector(".nav-menu").setAttribute("aria-expanded", "false");
-      }));
-
-      document.querySelectorAll("video").forEach((video) => {
-        video.addEventListener("error", () => { video.style.display = "none"; });
-      });
-      document.querySelectorAll("img").forEach((image) => {
-        image.addEventListener("error", () => { image.style.display = "none"; });
-      });
-
-      document.getElementById("year").textContent = String(new Date().getFullYear());
       renderCart();
+      updateQuote();
     })();
   </script>
 </body>
